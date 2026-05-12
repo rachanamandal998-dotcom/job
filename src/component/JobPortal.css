@@ -1,33 +1,45 @@
-/* === Brand Colors - Same as ServiceListing === */
+/* ============================================================
+   Brand Tokens
+   ============================================================ */
 :root {
-  --brand-gradient: linear-gradient(90deg, rgb(255, 215, 0), rgb(241, 90, 2));
-  --brand-btn: linear-gradient(135deg, rgb(251, 146, 60), rgb(249, 115, 22) 50%, rgb(234, 88, 12));
-  --brand-btn-hover: linear-gradient(135deg, rgb(249, 115, 22), rgb(234, 88, 12) 50%, rgb(194, 65, 12));
-  --brand-orange: rgb(249, 115, 22);
-  --brand-orange-light: rgba(251, 146, 60, 0.1);
-  --brand-orange-border: rgba(249, 115, 22, 0.2);
-  --brand-shadow: 0 4px 20px rgba(234, 88, 12, 0.15);
-  --brand-shadow-hover: 0 10px 35px rgba(234, 88, 12, 0.25);
+  --brand-gradient: linear-gradient(90deg, rgb(255,215,0), rgb(241,90,2));
+  --brand-btn: linear-gradient(135deg, rgb(251,146,60), rgb(249,115,22) 50%, rgb(234,88,12));
+  --brand-btn-hover: linear-gradient(135deg, rgb(249,115,22), rgb(234,88,12) 50%, rgb(194,65,12));
+
+  --brand-orange: rgb(249,115,22);
+  --brand-orange-light: rgba(251,146,60,0.1);
+  --brand-orange-border: rgba(249,115,22,0.2);
+
+  --brand-shadow: 0 4px 20px rgba(234,88,12,0.15);
+  --brand-shadow-hover: 0 10px 35px rgba(234,88,12,0.25);
 }
 
-/* === Page Background === */
+/* ============================================================
+   Page
+   ============================================================ */
 body {
   background: linear-gradient(180deg, #fffbf7 0%, #fff7ed 100%);
 }
 
-/* === Header Row === */
+/* ============================================================
+   Header
+   ============================================================ */
 .jp-header-row {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1.5rem;
   flex-wrap: wrap;
+
   margin-bottom: 1.5rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(249, 115, 22, 0.08);
+
+  border-bottom: 1px solid rgba(249,115,22,0.08);
 }
 
-/* === Greeting === */
+/* ============================================================
+   Greeting
+   ============================================================ */
 [class*="Greeting"] h1,
 .dashboard-shell h1 {
   background: var(--brand-gradient);
@@ -44,19 +56,19 @@ body {
   width: 100%;
 }
 
-/* Verified badge */
 [class*="verified"] {
   background: var(--brand-orange-light);
   color: var(--brand-orange);
   border: 1px solid var(--brand-orange-border);
 }
 
-/* === Jobs Menu === */
+/* ============================================================
+   Dropdown
+   ============================================================ */
 .jp-jobs-menu {
   position: relative;
 }
 
-/* Chevron animation */
 .jp-chevron {
   transition: transform 0.25s ease;
 }
@@ -65,19 +77,24 @@ body {
   transform: rotate(180deg);
 }
 
-/* Dropdown */
 .jp-dropdown {
   position: absolute;
   top: calc(100% + 0.5rem);
   right: 0;
+
   min-width: 240px;
-  background: rgba(255, 255, 255, 0.95);
+
+  background: rgba(255,255,255,0.95);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(249, 115, 22, 0.15);
+
+  border: 1px solid rgba(249,115,22,0.15);
   border-radius: 0.75rem;
+
   box-shadow: var(--brand-shadow-hover);
+
   padding: 0.5rem;
   z-index: 50;
+
   animation: slideDown 0.2s ease;
 }
 
@@ -96,13 +113,17 @@ body {
   display: flex;
   align-items: center;
   gap: 0.625rem;
+
   width: 100%;
   padding: 0.625rem 0.75rem;
+
   border: none;
   background: transparent;
   border-radius: 0.5rem;
+
   font-size: 0.875rem;
   color: #334155;
+
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: left;
@@ -122,14 +143,19 @@ body {
 
 .jp-dropdown-label {
   padding: 0.375rem 0.75rem;
+
   font-size: 0.75rem;
   font-weight: 600;
+
   color: #64748b;
+
   text-transform: uppercase;
   letter-spacing: 0.025em;
 }
 
-/* === Find Jobs Button (BOTTOM - no layout change) === */
+/* ============================================================
+   Bottom Button
+   ============================================================ */
 .btn {
   display: flex;
   justify-content: center;
@@ -142,19 +168,21 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+
   padding: 0.65rem 1.3rem;
+
   border-radius: 0.75rem;
+  border: none;
+
   font-size: 0.875rem;
   font-weight: 600;
-  border: none;
+
   cursor: pointer;
+
   background: var(--brand-btn);
   color: white;
-  box-shadow: var(--brand-shadow);
+
   transition: all 0.25s ease;
-  white-space: nowrap;
-  position: relative;
-  overflow: hidden;
 }
 
 .brand-button:hover {
@@ -163,99 +191,235 @@ body {
   transform: translateY(-2px);
 }
 
-.brand-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(234, 88, 12, 0.2);
-}
-
-/* shine effect */
-.brand-button::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,0.35),
-    transparent
-  );
-  transition: left 0.6s ease;
-}
-
-.brand-button:hover::after {
-  left: 120%;
-}
-
-/* === Action Cards === */
+/* ============================================================
+   ONLY CIRCLE GRID
+   ============================================================ */
 .actions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+
+  justify-items: center;
+
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+
+  /* REMOVE RECTANGLE */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
 }
 
-.actions-grid > div {
-  background: white;
-  border: 1px solid var(--brand-orange-border);
-  border-radius: 1rem;
-  transition: all 0.25s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+/* ============================================================
+   Circle Wrapper
+   ============================================================ */
+.circ-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  cursor: pointer;
+
+  /* REMOVE RECTANGLE */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* ============================================================
+   Main Circle
+   ============================================================ */
+.circ-outer {
   position: relative;
+
+  width: 130px;
+  height: 130px;
+
+  border-radius: 50%;
+
+  background: conic-gradient(
+    from 0deg,
+    rgb(255,215,0) 0deg,
+    rgb(241,90,2) 120deg,
+    rgb(255,180,0) 200deg,
+    rgb(241,90,2) 280deg,
+    rgb(255,215,0) 360deg
+  );
+
+  padding: 2px;
+
   overflow: hidden;
+
+  transition: all 0.2s ease;
+
+  /* ONLY CIRCLE SHADOW */
+  box-shadow:
+    0 6px 20px rgba(234,88,12,0.22),
+    0 2px 8px rgba(0,0,0,0.08);
 }
 
-.actions-grid > div:hover {
-  border-color: var(--brand-orange);
-  box-shadow: var(--brand-shadow);
-  transform: translateY(-4px);
+.circ-outer:hover {
+  transform: translateY(-4px) scale(1.03);
+
+  box-shadow:
+    0 14px 40px rgba(234,88,12,0.30),
+    0 4px 12px rgba(0,0,0,0.12);
 }
 
-/* primary card */
-.actions-grid > div[data-primary="true"],
-.actions-grid > div:first-child {
-  background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-  border: 1px solid var(--brand-orange);
+/* ============================================================
+   Inner White Circle
+   ============================================================ */
+.circ-white-ring {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* icon */
-.actions-grid svg {
-  color: var(--brand-orange);
+/* ============================================================
+   Inner Content Circle
+   ============================================================ */
+.circ-inner {
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    145deg,
+    #fff7ed 0%,
+    #ffedd5 55%,
+    #ffffff 100%
+  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+  padding: 10px;
+
+  text-align: center;
 }
 
-/* badge */
-.actions-grid [class*="badge"] {
-  background: var(--brand-btn);
+.circ-inner--primary {
+  background: linear-gradient(
+    145deg,
+    #ffedd5 0%,
+    #fed7aa 55%,
+    #fff7ed 100%
+  );
+}
+
+/* ============================================================
+   Icon
+   ============================================================ */
+.circ-icon {
+  color: rgb(234,88,12);
+  transition: transform 0.2s ease;
+}
+
+.circ-outer:hover .circ-icon {
+  transform: scale(1.12);
+}
+
+/* ============================================================
+   Text
+   ============================================================ */
+.circ-inner-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1e293b;
+
+  line-height: 1.2;
+}
+
+.circ-inner-sub {
+  font-size: 8.5px;
+  color: #94a3b8;
+
+  line-height: 1.2;
+}
+
+/* ============================================================
+   Badge
+   ============================================================ */
+.circ-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 20px;
+  height: 16px;
+
+  padding: 0 5px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(
+    135deg,
+    rgb(251,146,60),
+    rgb(234,88,12)
+  );
+
   color: white;
-  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
+
+  font-size: 9px;
+  font-weight: 700;
 }
 
-/* top accent line */
-.actions-grid > div::before {
-  content: "";
+/* ============================================================
+   Star Badge
+   ============================================================ */
+.circ-dot {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--brand-gradient);
-  opacity: 0;
-  transition: opacity 0.25s ease;
+  bottom: 2px;
+  right: 2px;
+
+  width: 22px;
+  height: 22px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    rgb(251,146,60),
+    rgb(234,88,12)
+  );
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 9px;
+  font-weight: bold;
+
+  border: 2px solid white;
 }
 
-.actions-grid > div:hover::before {
-  opacity: 1;
-}
-
-/* === Section Panel === */
+/* ============================================================
+   Section Panel
+   ============================================================ */
 [class*="SectionPanel"] {
   background: white;
+
   border: 1px solid var(--brand-orange-border);
   border-radius: 1rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
   transition: box-shadow 0.25s ease;
+
   margin-top: 1.5rem;
 }
 
@@ -263,103 +427,73 @@ body {
   box-shadow: var(--brand-shadow);
 }
 
-[class*="SectionPanel"] h2,
-[class*="SectionPanel"] h3 {
-  color: #1e293b;
-}
-
-[class*="SectionPanel"] [class*="empty"] svg {
-  color: var(--brand-orange);
-  opacity: 0.6;
-}
-
-/* === Search & Filter === */
+/* ============================================================
+   Search
+   ============================================================ */
 .jp-search-row {
   margin-top: 1.5rem;
+
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-@media (min-width: 640px) {
-  .jp-search-row {
-    flex-direction: row;
-  }
-}
-
 .jp-search {
   flex: 1;
+
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
   background: #fff;
+
   border: 1px solid var(--brand-orange-border);
   border-radius: 0.75rem;
-  padding: 0.65rem 0.875rem;
-  color: #94a3b8;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-}
 
-.jp-search:focus-within {
-  border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px var(--brand-orange-light);
-  transform: translateY(-1px);
+  padding: 0.65rem 0.875rem;
 }
 
 .jp-search input {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 0.875rem;
-  color: #0f172a;
   background: transparent;
 }
 
-.jp-search input::placeholder {
-  color: #94a3b8;
-}
-
-/* filter */
 .jp-filter {
   background: #fff;
+
   border: 1px solid var(--brand-orange-border);
   border-radius: 0.75rem;
+
   padding: 0.65rem 0.875rem;
-  font-size: 0.875rem;
-  color: #0f172a;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.jp-filter:hover {
-  border-color: var(--brand-orange);
-}
-
-.jp-filter:focus {
-  outline: none;
-  border-color: var(--brand-orange);
-  box-shadow: 0 0 0 3px var(--brand-orange-light);
-}
-
-/* === Responsive === */
+/* ============================================================
+   Responsive
+   ============================================================ */
 @media (max-width: 640px) {
-  .jp-header-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .brand-button {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .jp-dropdown {
-    left: 0;
-    right: 0;
-  }
-
   .actions-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .circ-outer {
+    width: 110px;
+    height: 110px;
+  }
+}
+
+@media (max-width: 380px) {
+  .circ-outer {
+    width: 96px;
+    height: 96px;
+  }
+
+  .circ-inner-label {
+    font-size: 9px;
+  }
+
+  .circ-inner-sub {
+    font-size: 8px;
   }
 }
