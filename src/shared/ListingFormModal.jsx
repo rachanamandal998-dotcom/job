@@ -1,104 +1,110 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { X, Upload, Sparkles } from "lucide-react";
+import { X, Plus } from "lucide-react";
+import { useState } from "react";
 import "./ListingFormModal.css";
 
-const WHATSAPP_NUMBER = "9779812345678"; // 👈 replace with your number
+export function ListingFormModal({ kind, onClose, onSubmit }) {
+  const [form, setForm] = useState({
+    name: "",
+    price: "",
+    stock: "",
+    image: "",
+  });
 
-export function ListingFormModal({ kind, onClose }) {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [imagePreview, setImagePreview] = useState(null);
-
-  const labels = kind === "product"
-    ? { heading: "Add Product", catLabel: "Product type", catPh: "e.g. Handmade clothing" }
-    : { heading: "Add Service", catLabel: "Which service do you offer?", catPh: "e.g. Plumbing, Tutoring, Catering" };
-
-  const handleImage = (e) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => setImagePreview(ev.target?.result);
-    reader.readAsDataURL(f);
+  const handleChange = (e) => {
+    setForm({...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const lines = [
-      `*New ${kind === "product" ? "Product" : "Service"} Listing*`,
-      ``,
-      `*${labels.catLabel}:* ${category}`,
-      `*Title:* ${title}`,
-      `*Description:* ${description}`,
-      price ? `*Price:* ${price}` : "",
-      imagePreview ? `_(Image attached separately)_` : "",
-    ].filter(Boolean).join("\n");
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`, "_blank");
-    onClose();
+    if (!form.name ||!form.price) return;
+    onSubmit({
+     ...form,
+      price: parseFloat(form.price).toFixed(2),
+      stock: parseInt(form.stock) || 0,
+      image: form.image || "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+    });
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="modal-overlay" onClick={onClose}>
+    <motion.div
+      className="modal-backdrop"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
       <motion.div
-        initial={{ y: 60, opacity: 0, rotateX: -10 }}
-        animate={{ y: 0, opacity: 1, rotateX: 0 }}
-        exit={{ y: 60, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 24 }}
+        className="modal-content"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
         onClick={(e) => e.stopPropagation()}
-        className="modal-card"
       >
-        <div className="modal-head">
-          <div className="modal-head-title"><Sparkles size={20} /> <h3>{labels.heading}</h3></div>
-          <button onClick={onClose} className="modal-close"><X size={20} /></button>
+        <div className="modal-header">
+          <h3>Add New {kind}</h3>
+          <button className="modal-close" onClick={onClose}>
+            <X size={20} />
+          </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="modal-body">
-          <Field label={labels.catLabel}>
-            <input required value={category} onChange={(e) => setCategory(e.target.value)} placeholder={labels.catPh} className="form-input" />
-          </Field>
-          <Field label="Title">
-            <input required value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Give it a clear name" className="form-input" />
-          </Field>
-          <Field label="Description">
-            <textarea required rows={4} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe what you offer…" className="form-input" style={{ resize: "none" }} />
-          </Field>
-          {kind === "product" && (
-            <Field label="Price (NPR)">
-              <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="0" className="form-input" />
-            </Field>
-          )}
-          <Field label="Image">
-            <label className="image-drop">
-              {imagePreview
-                ? <img src={imagePreview} alt="preview" />
-                : <>
-                    <Upload size={24} color="#f97316" />
-                    <span className="image-drop-title">Click to upload image</span>
-                    <span className="image-drop-hint">PNG, JPG up to a few MB</span>
-                  </>}
-              <input type="file" accept="image/*" hidden onChange={handleImage} />
-            </label>
-          </Field>
+        <form className="modal-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Product Name *</label>
+            <input
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              placeholder="e.g. Handmade Bag"
+              required
+            />
+          </div>
 
-          <div className="modal-actions">
-            <button type="button" onClick={onClose} className="btn-cancel">Cancel</button>
-            <motion.button type="submit" whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} className="brand-button btn-submit">
-              Submit via WhatsApp
-            </motion.button>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Price *</label>
+              <input
+                name="price"
+                type="number"
+                step="0.01"
+                value={form.price}
+                onChange={handleChange}
+                placeholder="29.99"
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Stock</label>
+              <input
+                name="stock"
+                type="number"
+                value={form.stock}
+                onChange={handleChange}
+                placeholder="12"
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Image URL</label>
+            <input
+              name="image"
+              value={form.image}
+              onChange={handleChange}
+              placeholder="https://..."
+            />
+          </div>
+
+          <div className="form-actions">
+            <button type="button" className="btn-secondary" onClick={onClose}>
+              Cancel
+            </button>
+            <button type="submit" className="btn-primary">
+              <Plus size={16} /> Add Product
+            </button>
           </div>
         </form>
       </motion.div>
     </motion.div>
-  );
-}
-
-function Field({ label, children }) {
-  return (
-    <div className="field">
-      <label>{label}</label>
-      {children}
-    </div>
   );
 }

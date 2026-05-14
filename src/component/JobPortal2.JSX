@@ -182,8 +182,8 @@ function QuickStats({ stats }) {
       value:
         stats.Applied > 0
           ? `${Math.round(
-              (stats.Shortlisted / stats.Applied) * 100
-            )}%`
+            (stats.Shortlisted / stats.Applied) * 100
+          )}%`
           : "0%",
     },
   ];
@@ -684,24 +684,23 @@ export default function JobPortal2() {
       />
 
       {/* BUTTON */}
-      <div className="btn">
+      <div className="jp-jobs-menu" ref={menuRef}>
+
         <button
           className="brand-button"
-          onClick={() =>
-            setShowJobsMenu(!showJobsMenu)
-          }
+          onClick={() => setShowJobsMenu(!showJobsMenu)}
         >
           <Plus size={18} />
-
           Find Jobs
-
-          <ChevronDown
-            size={16}
-            className={`jp-chevron ${
-              showJobsMenu ? "open" : ""
-            }`}
-          />
+          <ChevronDown size={16} className={`jp-chevron ${showJobsMenu ? "open" : ""}`} />
         </button>
+
+        {showJobsMenu && (
+          <div className="jp-dropdown">
+            ...
+          </div>
+        )}
+
       </div>
     </DashboardShell>
   );

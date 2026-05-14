@@ -11,6 +11,7 @@ import {
   TrendingUp,
   ShoppingBag,
   BarChart2,
+  List, // added
 } from "lucide-react";
 
 import {
@@ -61,12 +62,12 @@ function CircleCard3D({
     <div className="circ-card" onClick={onClick}>
       <div
         className={`circ-outer ${
-          primary ? "circ-outer--primary" : ""
+          primary? "circ-outer--primary" : ""
         }`}
       >
         <div
           className={`circ-inner ${
-            primary ? "circ-inner--primary" : ""
+            primary? "circ-inner--primary" : ""
           }`}
         >
           <Icon size={24} className="circ-icon" />
@@ -75,7 +76,7 @@ function CircleCard3D({
 
           <div className="circ-inner-sub">{sub}</div>
 
-          {badge !== undefined && (
+          {badge!== undefined && (
             <span className="circ-badge">{badge}</span>
           )}
         </div>
@@ -157,7 +158,7 @@ function ProductListOverview({ products, orders }) {
 
   const avgPrice =
     products.length > 0
-      ? (
+     ? (
           products.reduce(
             (a, p) =>
               a + (Number(p.price) || 0),
@@ -266,25 +267,9 @@ function ProductListOverview({ products, orders }) {
         </div>
 
         <div className="pl-ov-metrics">
-          <div className="pl-ov-metric">
-            <div className="pl-ov-metric-val">
-              {totalOrders}
-            </div>
+          
 
-            <div className="pl-ov-metric-label">
-              Total orders
-            </div>
-          </div>
-
-          <div className="pl-ov-metric">
-            <div className="pl-ov-metric-val">
-              {totalStock}
-            </div>
-
-            <div className="pl-ov-metric-label">
-              Units in stock
-            </div>
-          </div>
+          
 
           <div className="pl-ov-metric">
             <div className="pl-ov-metric-val">
@@ -322,7 +307,7 @@ function QuickStats({ products, orders }) {
 
   const deliveryRate =
     orders.length > 0
-      ? Math.round(
+     ? Math.round(
           (delivered / orders.length) * 100
         )
       : 0;
@@ -391,9 +376,9 @@ function ChartsSection({ orders, products }) {
 
   useEffect(() => {
     if (
-      !lineRef.current ||
-      !pieRef.current ||
-      !barRef.current
+     !lineRef.current ||
+     !pieRef.current ||
+     !barRef.current
     )
       return;
 
@@ -418,8 +403,8 @@ function ChartsSection({ orders, products }) {
         );
 
         return d
-          .toISOString()
-          .slice(0, 10);
+         .toISOString()
+         .slice(0, 10);
       }
     );
 
@@ -561,14 +546,14 @@ function ChartsSection({ orders, products }) {
 
     const pLabels =
       products.length > 0
-        ? products.map(
+       ? products.map(
             (p) => p.name
           )
         : ["No Products"];
 
     const pData =
       products.length > 0
-        ? products.map(
+       ? products.map(
             (p) => p.stock || 0
           )
         : [0];
@@ -704,145 +689,102 @@ export default function ProductListing2() {
     },
   ]);
 
-  return (
-    <DashboardShell>
-      <Greeting
-        title="Manage your product listings"
-        subtitle="Hi, Rachana!"
-        verified
+return (
+  <DashboardShell>
+    <Greeting title="Manage your product listings" subtitle="Hi, Rachana!" verified />
+
+    <section className="actions-grid">
+      <CircleCard3D
+        icon={Plus}
+        label="Add Products"
+        sub="Create listing"
+        primary
+        onClick={() => setFormOpen(true)}
       />
+      <CircleCard3D icon={Eye} label="View Products" sub="Your items" badge={products.length} />
+      <CircleCard3D icon={Truck} label="Track Orders" sub="Order status" badge={orders.length} />
+      <CircleCard3D icon={Store} label="Store" sub="Open shop" />
+    </section>
 
-      <section className="actions-grid">
-        <CircleCard3D
-          icon={Plus}
-          label="Add Products"
-          sub="Create listing"
-          primary
-          onClick={() =>
-            setFormOpen(true)
-          }
-        />
+    <ProductListOverview products={products} orders={orders} />
+    <QuickStats products={products} orders={orders} />
+    <ChartsSection orders={orders} products={products} />
 
-        <CircleCard3D
-          icon={Eye}
-          label="View Products"
-          sub="Your items"
-          badge={products.length}
-        />
-
-        <CircleCard3D
-          icon={Truck}
-          label="Track Orders"
-          sub="Order status"
-          badge={orders.length}
-        />
-
-        <CircleCard3D
-          icon={Store}
-          label="Store"
-          sub="Open shop"
-        />
-      </section>
-
-      <ProductListOverview
-        products={products}
-        orders={orders}
-      />
-
-      <QuickStats
-        products={products}
-        orders={orders}
-      />
-
-      <ChartsSection
-        orders={orders}
-        products={products}
-      />
-
-      <AnimatePresence>
-        {formOpen && (
-          <ListingFormModal
-            kind="product"
-            onClose={() =>
-              setFormOpen(false)
-            }
-          />
-        )}
-      </AnimatePresence>
-            {/* MY ORDERS SECTION */}
-      <SectionPanel
-        title="My Orders"
-        description="Your three most recent orders — manage and confirm them here."
-        emptyIcon={Package}
-        emptyTitle="No recent orders right now"
-        emptyHint="Orders will appear here once customers purchase your products."
-      >
-        {orders.length > 0 && (
-          <div className="pl-order-list">
-            {orders.slice(0, 3).map((order, i) => (
-              <div key={i} className="pl-order-item">
-                <div className="pl-order-left">
-                  <div className="pl-order-id">#{order.id}</div>
-                  <div className="pl-order-meta">
-                    {order.product} • {order.date}
-                  </div>
-                </div>
-                <div className={`pl-order-status pl-status-${order.status}`}>
-                  {order.status === "pending" && <Clock size={14} />}
-                  {order.status === "shipped" && <Truck size={14} />}
-                  {order.status === "delivered" && <CheckCircle size={14} />}
-                  {order.status}
+    <SectionPanel
+      title="My Orders"
+      description="Your three most recent orders — manage and confirm them here."
+      emptyIcon={Package}
+      emptyTitle="No recent orders right now"
+      emptyHint="Orders will appear here once customers purchase your products."
+    >
+      {orders.length > 0 && (
+        <div className="pl-order-list">
+          {orders.slice(0, 3).map((order, i) => (
+            <div key={i} className="pl-order-item">
+              <div className="pl-order-left">
+                <div className="pl-order-id">#{order.id}</div>
+                <div className="pl-order-meta">
+                  {order.product} • {order.date}
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </SectionPanel>
-
-      {/* PRODUCTS SECTION */}
-      <SectionPanel
-        title="Products"
-        description="Manage your listings with a polished product view."
-        emptyIcon={Package}
-        emptyTitle="No products yet"
-        emptyHint="Add your first product to start selling."
-        cta={
-          <button
-            className="brand-button"
-            onClick={() => setFormOpen(true)}
-          >
-            <Plus size={16} /> Add Product
-          </button>
-        }
-      >
-        {products.length > 0 && (
-          <div className="pl-product-grid">
-            {products.map((p, i) => (
-              <div key={i} className="pl-product-card">
-                <div className="pl-product-img">
-                  <img src={p.image || "/placeholder.png"} alt={p.name} />
-                </div>
-                <div className="pl-product-info">
-                  <div className="pl-product-name">{p.name}</div>
-                  <div className="pl-product-price">${p.price}</div>
-                  <div className="pl-product-stock">
-                    {p.stock} in stock
-                  </div>
-                </div>
+              <div className={`pl-order-status pl-status-${order.status}`}>
+                {order.status === "pending" && <Clock size={14} />}
+                {order.status === "shipped" && <Truck size={14} />}
+                {order.status === "delivered" && <CheckCircle size={14} />}
+                {order.status}
               </div>
-            ))}
-          </div>
-        )}
-      </SectionPanel>
+            </div>
+          ))}
+        </div>
+      )}
+    </SectionPanel>
 
-      <AnimatePresence>
-        {formOpen && (
-          <ListingFormModal
-            kind="product"
-            onClose={() => setFormOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-    </DashboardShell>
-  );
+    <SectionPanel
+      title="Products"
+      description="Manage your listings with a polished product view."
+      emptyIcon={Package}
+      emptyTitle="No products yet"
+      emptyHint="Add your first product to start selling."
+      cta={
+        <button className="brand-button" onClick={() => setFormOpen(true)}>
+          <Plus size={16} /> Add Product
+        </button>
+      }
+    >
+      {products.length > 0 && (
+        <div className="pl-product-grid">
+          {products.map((p, i) => (
+            <div key={i} className="pl-product-card">
+              <div className="pl-product-img">
+                <img src={p.image || "/placeholder.png"} alt={p.name} />
+              </div>
+              <div className="pl-product-info">
+                <div className="pl-product-name">{p.name}</div>
+                <div className="pl-product-price">${p.price}</div>
+                <div className="pl-product-stock">{p.stock} in stock</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </SectionPanel>
+
+    {/* BOTTOM BUTTON - not fixed, scrolls with page */}
+    <div className="pl-bottom-action">
+      <button className="pl-bottom-btn" onClick={() => setFormOpen(true)}>
+        <Plus size={18} /> Add New Product
+      </button>
+    </div>
+
+    <AnimatePresence>
+      {formOpen && (
+        <ListingFormModal
+          kind="product"
+          onClose={() => setFormOpen(false)}
+          onSubmit={handleAddProduct}
+        />
+      )}
+    </AnimatePresence>
+  </DashboardShell>
+);
 }

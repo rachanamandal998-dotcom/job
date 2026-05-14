@@ -39,7 +39,7 @@
 }
 
 /* ─────────────────────────────────────────────
-   CHART AREA (FIX FOR MOBILE RESPONSIVE)
+   CHART AREA
 ───────────────────────────────────────────── */
 .jp-chart-wrap {
   position: relative;
@@ -130,8 +130,8 @@
 }
 
 .jp-af-dot.orange { background: #f97316; }
-.jp-af-dot.blue { background: #3b82f6; }
-.jp-af-dot.green { background: #22c55e; }
+.jp-af-dot.blue   { background: #3b82f6; }
+.jp-af-dot.green  { background: #22c55e; }
 
 .jp-af-text {
   font-size: 14px;
@@ -146,10 +146,113 @@
 }
 
 /* ─────────────────────────────────────────────
-   RESPONSIVE FIX (PERFECT MOBILE SUPPORT)
+   DROPDOWN MENU (FIXED)
 ───────────────────────────────────────────── */
 
-/* Tablet */
+.jp-jobs-menu {
+  position: relative;
+  overflow: visible;
+  z-index: 1000;
+  display: flex;
+   justify-content: center;
+  align-items: center;
+  padding-top: 12px;
+  
+}
+
+/* ✅ FIXED CLASS (IMPORTANT) */
+.jp-dropdown {
+  
+ 
+  position: absolute;
+  top:2800px;
+  left: 0;
+  margin-top: 10px;
+  justify-content: center;
+  align-items: center;
+
+  width: 260px;
+
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+
+  padding: 8px;
+  z-index: 9999;
+
+  animation: slideDown 0.2s ease;
+}
+
+/* dropdown items */
+.jp-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 12px;
+  border-radius: 8px;
+
+  background: transparent;
+  border: none;
+
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.jp-dropdown-item:hover {
+  background: #fff7ed;
+}
+
+.jp-dropdown-divider {
+  height: 1px;
+  background: #ffe4c7;
+  margin: 6px 0;
+}
+
+.jp-dropdown-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  padding: 6px 10px;
+}
+
+/* ─────────────────────────────────────────────
+   BUTTON FIX
+───────────────────────────────────────────── */
+
+.brand-button {
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+
+  background: #f97316;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.jp-chevron {
+  transition: transform 0.2s ease;
+}
+
+.jp-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+
 @media (max-width: 1024px) {
   .jp-charts-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -158,13 +261,12 @@
   .jp-chart-wrap {
     height: 240px;
   }
+  
 }
 
-/* Tablet small */
 @media (max-width: 768px) {
   .jp-charts-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
   }
 
   .quick-stats {
@@ -174,19 +276,9 @@
   .jp-chart-wrap {
     height: 220px;
   }
-
-  .jp-chart-card {
-    padding: 18px;
-  }
 }
 
-/* Mobile large */
 @media (max-width: 600px) {
-  .jp-charts-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
   .quick-stats {
     grid-template-columns: 1fr;
   }
@@ -194,37 +286,15 @@
   .jp-chart-wrap {
     height: 200px;
   }
-
-  .jp-chart-card {
-    padding: 16px;
-  }
-
-  .jp-chart-card-title {
-    font-size: 15px;
-  }
-
-  .jp-chart-card-sub {
-    font-size: 12px;
-  }
 }
 
-/* Mobile medium */
 @media (max-width: 420px) {
   .jp-chart-wrap {
     height: 185px;
   }
 
-  .jp-chart-card {
-    padding: 14px;
-    border-radius: 18px;
-  }
-
   .qs-val {
     font-size: 20px;
-  }
-
-  .qs-card {
-    padding: 14px;
   }
 
   .qs-icon {
@@ -233,17 +303,23 @@
   }
 }
 
-/* Very small phones */
 @media (max-width: 360px) {
   .jp-chart-wrap {
     height: 175px;
   }
+}
 
-  .jp-chart-card-title {
-    font-size: 14px;
+/* ─────────────────────────────────────────────
+   ANIMATION
+───────────────────────────────────────────── */
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
   }
-
-  .jp-chart-card-sub {
-    font-size: 11px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

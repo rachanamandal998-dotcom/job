@@ -607,159 +607,117 @@ function ServiceListing2() {
     },
   ]);
 
-  return (
-    <DashboardShell>
-      <Greeting
-        title="Manage your service listings"
-        subtitle="Hi, Rachana!"
-        verified
+ return (
+  <DashboardShell>
+    <Greeting
+      title="Manage your service listings"
+      subtitle="Hi, Rachana!"
+      verified
+    />
+
+    <section className="actions-grid">
+      <CircleCard3D
+        icon={Plus}
+        label="Add Service"
+        sub="Create listing"
+        primary
+        onClick={() => setFormOpen(true)}
       />
-
-      <section className="actions-grid">
-        <CircleCard3D
-          icon={Plus}
-          label="Add Service"
-          sub="Create listing"
-          primary
-          onClick={() => setFormOpen(true)}
-        />
-
-        <CircleCard3D
-          icon={Eye}
-          label="View Services"
-          sub="Manage all"
-          badge={services.length}
-        />
-
-        <CircleCard3D
-          icon={Calendar}
-          label="Track Bookings"
-          sub="Updates"
-          badge={bookings.length}
-        />
-
-        <CircleCard3D
-          icon={Store}
-          label="Open Store"
-          sub="Showcase"
-        />
-      </section>
-
-      <BookingStats stats={bookingStats} />
-
-      <QuickStats
-        services={services}
-        bookings={bookings}
+      <CircleCard3D
+        icon={Eye}
+        label="View Services"
+        sub="Manage all"
+        badge={services.length}
       />
-
-      <ChartsSection
-        bookings={bookings}
-        services={services}
+      <CircleCard3D
+        icon={Calendar}
+        label="Track Bookings"
+        sub="Updates"
+        badge={bookings.length}
       />
+      <CircleCard3D
+        icon={Store}
+        label="Open Store"
+        sub="Showcase"
+      />
+    </section>
 
-      <SectionPanel
-        title="My Bookings"
-        description="Latest bookings — manage and confirm them here."
-        emptyIcon={ClipboardList}
-        emptyTitle="No bookings found"
-        emptyHint="New bookings will appear here."
-      >
-        <div className="sl-booking-list">
-          {bookings.map((b, i) => (
-            <div
-              key={i}
-              className="sl-booking-item"
-            >
-              <div className="sl-booking-left">
-                <div className="sl-booking-service">
-                  {b.serviceName}
-                </div>
+    <BookingStats stats={bookingStats} />
+    <QuickStats services={services} bookings={bookings} />
+    <ChartsSection bookings={bookings} services={services} />
 
-                <div className="sl-booking-meta">
-                  {b.customer} • {b.date}
-                </div>
-              </div>
-
-              <div
-                className={`sl-booking-status sl-status-${b.status}`}
-              >
-                {b.status === "pending" && (
-                  <Clock size={14} />
-                )}
-
-                {b.status === "confirmed" && (
-                  <CheckCircle size={14} />
-                )}
-
-                {b.status === "completed" && (
-                  <CheckCircle size={14} />
-                )}
-
-                {b.status === "cancelled" && (
-                  <XCircle size={14} />
-                )}
-
-                {b.status}
-              </div>
+    <SectionPanel
+      title="My Bookings"
+      description="Latest bookings — manage and confirm them here."
+      emptyIcon={ClipboardList}
+      emptyTitle="No bookings found"
+      emptyHint="New bookings will appear here."
+    >
+      <div className="sl-booking-list">
+        {bookings.map((b, i) => (
+          <div key={i} className="sl-booking-item">
+            <div className="sl-booking-left">
+              <div className="sl-booking-service">{b.serviceName}</div>
+              <div className="sl-booking-meta">{b.customer} • {b.date}</div>
             </div>
-          ))}
-        </div>
-      </SectionPanel>
-
-      <SectionPanel
-        title="My Services"
-        description="Manage your services with a polished view."
-        emptyIcon={Wrench}
-        emptyTitle="No services found"
-        emptyHint="Start by adding your first service."
-        cta={
-          <button
-            onClick={() => setFormOpen(true)}
-            className="brand-button"
-          >
-            <Plus size={16} />
-            Add Service
-          </button>
-        }
-      >
-        <div className="sl-service-grid">
-          {services.map((s, i) => (
-            <div
-              key={i}
-              className="sl-service-card"
-            >
-              <div className="sl-service-top">
-                <div className="sl-service-name">
-                  {s.name}
-                </div>
-
-                <div className="sl-service-price">
-                  ${s.price}
-                </div>
-              </div>
-
-              <div className="sl-service-desc">
-                {s.description}
-              </div>
-
-              <div className="sl-service-meta">
-                {s.bookings} bookings • {s.rating}★
-              </div>
+            <div className={`sl-booking-status sl-status-${b.status}`}>
+              {b.status === "pending" && <Clock size={14} />}
+              {b.status === "confirmed" && <CheckCircle size={14} />}
+              {b.status === "completed" && <CheckCircle size={14} />}
+              {b.status === "cancelled" && <XCircle size={14} />}
+              {b.status}
             </div>
-          ))}
-        </div>
-      </SectionPanel>
+          </div>
+        ))}
+      </div>
+    </SectionPanel>
 
-      <AnimatePresence>
-        {formOpen && (
-          <ListingFormModal
-            kind="service"
-            onClose={() => setFormOpen(false)}
-          />
-        )}
-      </AnimatePresence>
-    </DashboardShell>
-  );
+    <SectionPanel
+      title="My Services"
+      description="Manage your services with a polished view."
+      emptyIcon={Wrench}
+      emptyTitle="No services found"
+      emptyHint="Start by adding your first service."
+      cta={
+        <button onClick={() => setFormOpen(true)} className="brand-button">
+          <Plus size={16} />
+          Add Service
+        </button>
+      }
+    >
+      <div className="sl-service-grid">
+        {services.map((s, i) => (
+          <div key={i} className="sl-service-card">
+            <div className="sl-service-top">
+              <div className="sl-service-name">{s.name}</div>
+              <div className="sl-service-price">${s.price}</div>
+            </div>
+            <div className="sl-service-desc">{s.description}</div>
+            <div className="sl-service-meta">
+              {s.bookings} bookings • {s.rating}★
+            </div>
+          </div>
+        ))}
+      </div>
+    </SectionPanel>
+
+    {/* BOTTOM BUTTON - ADDED */}
+    <div className="sl-bottom-action">
+      <button className="sl-bottom-btn" onClick={() => setFormOpen(true)}>
+        <Plus size={18} /> Add New Service
+      </button>
+    </div>
+
+    <AnimatePresence>
+      {formOpen && (
+        <ListingFormModal
+          kind="service"
+          onClose={() => setFormOpen(false)}
+        />
+      )}
+    </AnimatePresence>
+  </DashboardShell>
+);
 }
 
 export default ServiceListing2;
